@@ -51,6 +51,7 @@ class Provider(kodion.AbstractProvider):
             title = json_item.get('overhead', json_item['headline'])
             url = json_item['url']
             video_item = VideoItem(title, context.create_uri(['play'], {'url': url}))
+            video_item.set_fanart(self.get_fanart(context))
             video_item.set_image(json_item['image']['url_hdpi'])
             video_item.set_duration_from_seconds(int(json_item['duration']))
             video_item.set_plot(json_item['text'])
