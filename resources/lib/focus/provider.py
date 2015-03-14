@@ -12,7 +12,8 @@ class Provider(kodion.AbstractProvider):
     def __init__(self):
         kodion.AbstractProvider.__init__(self)
         self._local_map.update({'focus.related': 30500,
-                                'focus.all-videos': 30501})
+                                'focus.all-videos': 30501,
+                                'focus.categories': 30502})
         self._client = None
         pass
 
@@ -81,6 +82,30 @@ class Provider(kodion.AbstractProvider):
         return self._do_videos(context, json_data)
         pass
 
+    @kodion.RegisterProviderPath('^/all-videos/$')
+    def _on_all_videos(self, context, re_match):
+        context.set_content_type(kodion.constants.content_type.EPISODES)
+        client = self.get_client(context)
+        json_data = context.get_function_cache().get(FunctionCache.ONE_HOUR, client.get_root_data)
+        json_data = client.get_all_videos(json_data)
+        return self._do_videos(context=context, json_data=json_data)
+
+    @kodion.RegisterProviderPath('^/categories/$')
+    def _on_categories(self, context, re_match):
+        result = []
+
+        client = self.get_client(context)
+        json_data = context.get_function_cache().get(FunctionCache.ONE_HOUR, client.get_root_data)
+        categories = client.get_categories_from_data(json_data)
+        for category in categories:
+            category_item = DirectoryItem(category, context.create_uri(['category', category]))
+            category_item.set_image(context.create_resource_path('media', 'category.png'))
+            category_item.set_fanart(self.get_fanart(context))
+            result.append(category_item)
+            pass
+
+        return result
+
     @kodion.RegisterProviderPath('^/category/(?P<category>.+)/$')
     def _on_category(self, context, re_match):
         context.set_content_type(kodion.constants.content_type.EPISODES)
@@ -88,14 +113,6 @@ class Provider(kodion.AbstractProvider):
         client = self.get_client(context)
         json_data = context.get_function_cache().get(FunctionCache.ONE_HOUR, client.get_root_data)
         json_data = client.get_videos_from_data(json_data, category)
-        return self._do_videos(context=context, json_data=json_data)
-
-    @kodion.RegisterProviderPath('^/all-videos/$')
-    def _on_all_videos(self, context, re_match):
-        context.set_content_type(kodion.constants.content_type.EPISODES)
-        client = self.get_client(context)
-        json_data = context.get_function_cache().get(FunctionCache.ONE_HOUR, client.get_root_data)
-        json_data = client.get_all_videos(json_data)
         return self._do_videos(context=context, json_data=json_data)
 
     def on_root(self, context, re_match):
@@ -109,15 +126,11 @@ class Provider(kodion.AbstractProvider):
         result.append(all_videos_item)
 
         # categories
-        client = self.get_client(context)
-        json_data = context.get_function_cache().get(FunctionCache.ONE_HOUR, client.get_root_data)
-        categories = client.get_categories_from_data(json_data)
-        for category in categories:
-            category_item = DirectoryItem(category, context.create_uri(['category', category]))
-            category_item.set_image(context.create_resource_path('media', 'category.png'))
-            category_item.set_fanart(self.get_fanart(context))
-            result.append(category_item)
-            pass
+        categories_item = DirectoryItem(context.localize(self._local_map['focus.categories']),
+                                        context.create_uri(['categories']))
+        categories_item.set_image(context.create_resource_path('media', 'category.png'))
+        categories_item.set_fanart(self.get_fanart(context))
+        result.append(categories_item)
 
         return result
 

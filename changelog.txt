@@ -1,6 +1,7 @@
 1.0.3~beta1 (2015-03-14)
 ADD: 'All videos'
 ADD: 'duration' optimized for KODI 15.X (Isengard)
+UPD: moved categories to a sub-menu
 
 1.0.2 (2015-03-09)
 - initial version for tests
