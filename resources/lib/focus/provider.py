@@ -91,6 +91,7 @@ class Provider(kodion.AbstractProvider):
 
     @kodion.RegisterProviderPath('^/category/(?P<category>.+)/$')
     def _on_category(self, context, re_match):
+        context.set_content_type(kodion.constants.content_type.EPISODES)
         category = re_match.group('category')
         client = self.get_client(context)
         json_data = context.get_function_cache().get(FunctionCache.ONE_HOUR, client.get_root_data)
