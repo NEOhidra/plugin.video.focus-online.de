@@ -1,3 +1,6 @@
+2.0.0~alpha1 (2015-07-19)
+UPD: nightcrawler framework
+
 1.1.1 (2015-03-31)
 ADD: support for 1080p (default 720p)
 UPD: improved video stream support

@@ -1,7 +1,6 @@
 __author__ = 'bromix'
 
-from resources.lib.kodion import runner
-from resources.lib import focus
+from resources.lib.org.bromix import nightcrawler
+from resources.lib.de import focus
 
-__provider__ = focus.Provider()
-runner.run(__provider__)
+nightcrawler.run(focus.Provider())
