@@ -1,4 +1,4 @@
-2.0.0~alpha1 (2015-07-19)
+2.0.0~alpha2 (2015-07-19)
 UPD: nightcrawler framework
 
 1.1.1 (2015-03-31)
