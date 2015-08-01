@@ -1,10 +1,10 @@
+__author__ = 'bromix'
+
 import datetime
 import re
 
-__author__ = 'bromix'
-
 # nightcrawler
-from resources.lib.org.bromix import nightcrawler
+from resources.lib import nightcrawler
 
 
 class Client(nightcrawler.HttpClient):

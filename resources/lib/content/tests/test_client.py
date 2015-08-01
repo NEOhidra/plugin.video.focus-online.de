@@ -2,7 +2,7 @@ __author__ = 'bromix'
 
 import unittest
 
-from resources.lib.de.focus.client import Client
+from resources.lib.content.client import Client
 
 
 class TestClient(unittest.TestCase):

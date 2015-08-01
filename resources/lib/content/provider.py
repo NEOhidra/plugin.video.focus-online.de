@@ -1,7 +1,7 @@
 __author__ = 'bromix'
 
-from resources.lib.de.focus.client import Client
-from resources.lib.org.bromix import nightcrawler
+from resources.lib.content.client import Client
+from resources.lib import nightcrawler
 
 
 class Provider(nightcrawler.Provider):
