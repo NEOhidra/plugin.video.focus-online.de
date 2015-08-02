@@ -79,14 +79,16 @@ class Provider(nightcrawler.Provider):
         result.append({'type': 'folder',
                        'title': context.localize(self.FOCUS_LOCAL_ALL_VIDEOS),
                        'uri': context.create_uri('all-videos'),
-                       'images': {'thumbnail': context.create_resource_path('media/category.png')}})
+                       'images': {'thumbnail': context.create_resource_path('media/category.png'),
+                                  'fanart': self.get_fanart(context)}})
 
         # categories
         client = self.get_client(context)
         categories = context.cache_function(context.CACHE_ONE_HOUR/2, client.get_categories)
         for category in categories:
             category.update({'uri': context.create_uri('category/%s' % category['title']),
-                             'images': {'thumbnail': context.create_resource_path('media/category.png')}})
+                             'images': {'thumbnail': context.create_resource_path('media/category.png'),
+                                        'fanart': self.get_fanart(context)}})
             result.append(category)
             pass
 
