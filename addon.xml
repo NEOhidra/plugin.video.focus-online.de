@@ -15,9 +15,9 @@
 		<language>de</language>
 		<platform>all</platform>
 		<license>GNU General Public License v2.0</license>
-		<forum></forum>
+		<forum>http://forum.kodi.tv/showthread.php?tid=233963</forum>
 		<website>www.focus.de/videos</website>
-        <email>kodi at bromix dot org</email>
+		<email>kodi at bromix dot org</email>
 		<source>https://github.com/bromix/plugin.video.focus-online.de</source>
 	</extension>
 </addon>
